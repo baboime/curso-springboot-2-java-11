@@ -37,6 +37,7 @@ public class Pedido implements Serializable{
 	}
 
 	public Pedido(Long id, Instant momento, StatusDoPedido statusDoPedido, Usuario cliente) {
+		super();
 		this.id = id;
 		this.momento = momento;
 		setStatusDoPedido(statusDoPedido);
