@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import com.edney.curso.entidades.Categoria;
 import com.edney.curso.entidades.Pedido;
+import com.edney.curso.entidades.Produto;
 import com.edney.curso.entidades.Usuario;
 import com.edney.curso.entidades.enums.StatusDoPedido;
 import com.edney.curso.repositorios.RepositorioCategoria;
 import com.edney.curso.repositorios.RepositorioPedido;
+import com.edney.curso.repositorios.RepositorioProduto;
 import com.edney.curso.repositorios.RepositorioUsuario;
 
 @Configuration
@@ -28,6 +30,9 @@ public class ConfiguracaoTeste implements CommandLineRunner {
 	
 	@Autowired
 	private RepositorioCategoria repositorioCategoria;
+	
+	@Autowired
+	private RepositorioProduto repositorioProduto;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -37,6 +42,14 @@ public class ConfiguracaoTeste implements CommandLineRunner {
 		Categoria cat3 = new Categoria(null, "Computadores");
 		
 		repositorioCategoria.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
+		Produto prd1 = new Produto(null, "The Lord of the Rings", "Lorem ipsum dolor sit amet, consectetur.", 90.5, "");
+		Produto prd2 = new Produto(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190.0, "");
+		Produto prd3 = new Produto(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250.0, "");
+		Produto prd4 = new Produto(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200.0, "");
+		Produto prd5 = new Produto(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100.99, "");
+		
+		repositorioProduto.saveAll(Arrays.asList(prd1, prd2, prd3, prd4, prd5));
 		
 		Usuario u1 = new Usuario(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
 		Usuario u2 = new Usuario(null, "Alex Green", "alex@gmail.com", "977777777", "123456");
