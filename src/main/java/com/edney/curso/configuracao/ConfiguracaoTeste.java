@@ -9,11 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
 import com.edney.curso.entidades.Categoria;
+import com.edney.curso.entidades.ItemDePedido;
 import com.edney.curso.entidades.Pedido;
 import com.edney.curso.entidades.Produto;
 import com.edney.curso.entidades.Usuario;
 import com.edney.curso.entidades.enums.StatusDoPedido;
 import com.edney.curso.repositorios.RepositorioCategoria;
+import com.edney.curso.repositorios.RepositorioItemDePedido;
 import com.edney.curso.repositorios.RepositorioPedido;
 import com.edney.curso.repositorios.RepositorioProduto;
 import com.edney.curso.repositorios.RepositorioUsuario;
@@ -33,6 +35,9 @@ public class ConfiguracaoTeste implements CommandLineRunner {
 	
 	@Autowired
 	private RepositorioProduto repositorioProduto;
+	
+	@Autowired
+	private RepositorioItemDePedido repositorioItemDePedido;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -71,7 +76,12 @@ public class ConfiguracaoTeste implements CommandLineRunner {
 		repositorioUsuario.saveAll(Arrays.asList(u1, u2));
 		repositorioPedido.saveAll(Arrays.asList(p1, p2, p3));
 		
-	}
+		ItemDePedido ip1 = new ItemDePedido(p1, prd1, 2, prd1.getPreco());
+		ItemDePedido ip2 = new ItemDePedido(p1, prd3, 1, prd3.getPreco());
+		ItemDePedido ip3 = new ItemDePedido(p2, prd3, 2, prd3.getPreco());
+		ItemDePedido ip4 = new ItemDePedido(p3, prd5, 2, prd5.getPreco());
+		
+		repositorioItemDePedido.saveAll(Arrays.asList(ip1, ip2, ip3,ip4));
 	
-	
+	}	
 }
