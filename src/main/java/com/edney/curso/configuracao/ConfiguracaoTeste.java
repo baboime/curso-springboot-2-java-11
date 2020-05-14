@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Profile;
 
 import com.edney.curso.entidades.Categoria;
 import com.edney.curso.entidades.ItemDePedido;
+import com.edney.curso.entidades.Pagamento;
 import com.edney.curso.entidades.Pedido;
 import com.edney.curso.entidades.Produto;
 import com.edney.curso.entidades.Usuario;
@@ -82,6 +83,12 @@ public class ConfiguracaoTeste implements CommandLineRunner {
 		ItemDePedido ip4 = new ItemDePedido(p3, prd5, 2, prd5.getPreco());
 		
 		repositorioItemDePedido.saveAll(Arrays.asList(ip1, ip2, ip3,ip4));
+		
+		Pagamento pag1 = new Pagamento(null, Instant.parse("2019-06-20T21:53:07Z"), p1);
+		p1.setPagamento(pag1);
+		
+		repositorioPedido.save(p1);
+		
 	
 	}	
 }
