@@ -4,10 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import com.edney.curso.entidades.Usuario;
 import com.edney.curso.repositorios.RepositorioUsuario;
+import com.edney.curso.servicos.excecoes.ExcecaoBancoDeDados;
 import com.edney.curso.servicos.excecoes.ExcecaoRecursoNaoEncontrato;
 
 @Service // Registra a classe como um componente do spring e tornará possível a injeção de dependência automática ao utilizar o @Autowired
@@ -30,7 +33,16 @@ public class ServicoUsuario {
 	}
 	
 	public void excluir(Long id) {
-		repositorio.deleteById(id);
+		try {
+			repositorio.deleteById(id);
+		}
+		catch (EmptyResultDataAccessException e) {
+			throw new ExcecaoRecursoNaoEncontrato(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new ExcecaoBancoDeDados(e.getMessage()); 
+		}
+		
 	}
 	
 	public Usuario atualizar(Long id, Usuario obj) {
