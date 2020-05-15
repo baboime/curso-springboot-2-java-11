@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.edney.curso.entidades.Usuario;
 import com.edney.curso.repositorios.RepositorioUsuario;
+import com.edney.curso.servicos.excecoes.ExcecaoRecursoNaoEncontrato;
 
 @Service // Registra a classe como um componente do spring e tornará possível a injeção de dependência automática ao utilizar o @Autowired
 public class ServicoUsuario {
@@ -21,7 +22,7 @@ public class ServicoUsuario {
 	
 	public Usuario buscarPeloId(Long id) {
 		Optional<Usuario> obj = repositorio.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ExcecaoRecursoNaoEncontrato(id));
 	}
 	
 	public Usuario inserir(Usuario obj) {
